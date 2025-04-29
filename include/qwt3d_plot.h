@@ -1,10 +1,13 @@
 #ifndef __plot3d__
 #define __plot3d__
 
+#include "qglobal.h"
 #if QT_VERSION < 0x050000
 #include <QGLWidget>
-#else
+#elif QT_VERSION < 0x060000
 #include <QOpenGLWidget>
+#else
+#include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
 #include "qwt3d_coordsys.h"

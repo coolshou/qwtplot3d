@@ -7,7 +7,10 @@ INCLUDEPATH    += ../../include
 DEPENDPATH	= $$INCLUDEPATH
 DESTDIR = ../bin
 
-unix:LIBS += -lqwtplot3d -L../../lib
+QT += widgets
+greaterThan(QT_MAJOR_VERSION, 5): QT += openglwidgets
+
+unix:LIBS += -lqwtplot3d -L../../lib -lz -lGLU
 linux-g++:QMAKE_CXXFLAGS += -fno-exceptions
 
 win32{

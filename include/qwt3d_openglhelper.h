@@ -6,8 +6,10 @@
 #include <qgl.h>
 #elif QT_VERSION < 0x050000
 #include <QtOpenGL/qgl.h>
-#else
+#elif QT_VERSION < 0x060000 // Qt5
 #include <QOpenGLWidget>
+#else
+#include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
 #ifdef __APPLE__

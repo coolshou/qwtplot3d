@@ -7,8 +7,10 @@
 #include <qgl.h>
 #elif QT_VERSION < 0x050000
 #include <QtOpenGL/qgl.h>
-#else
+#elif QT_VERSION < 0x060000
 #include <QOpenGLWidget>
+#else
+#include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
 #include "qwt3d_types.h"
