@@ -3,14 +3,14 @@ CONFIG      += qt warn_on thread debug
 UI_DIR = tmp
 MOC_DIR      = tmp
 OBJECTS_DIR  = tmp
-INCLUDEPATH    += ../../include 
+INCLUDEPATH    += ../../include
 DEPENDPATH	= $$INCLUDEPATH
 DESTDIR = ../bin
 
 QT += widgets
 greaterThan(QT_MAJOR_VERSION, 5): QT += openglwidgets
 
-unix:LIBS += -lqwtplot3d -L../../lib -lz -lGLU
+unix:LIBS += -L$$PWD/../lib -lqwtplot3d  -lz -lGLU
 linux-g++:QMAKE_CXXFLAGS += -fno-exceptions
 
 win32{
@@ -24,7 +24,7 @@ win32{
 
 }
 
-MYVERSION = $$[QMAKE_VERSION] 
+MYVERSION = $$[QMAKE_VERSION]
 ISQT4 = $$find(MYVERSION, ^[2-9])
 
 !isEmpty( ISQT4 ) {

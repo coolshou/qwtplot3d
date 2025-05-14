@@ -3,12 +3,29 @@
 
 TARGET            = qwtplot3d
 TEMPLATE          = lib
-CONFIG           += qt warn_on opengl thread zlib debug staticlib
+
+# Use custom variable to decide static or shared
+isEmpty(LIB_TYPE): LIB_TYPE = shared  # default to shared
+
+CONFIG           += qt warn_on opengl thread zlib
+CONFIG(debug, debug|release) {
+    CONFIG += debug
+} else {
+    CONFIG += release
+}
+# Choose library type
+equals(LIB_TYPE, static) {
+    CONFIG += staticlib
+    message(Building static library)
+} else {
+    CONFIG += shared
+    message(Building shared library)
+}
 MOC_DIR           = tmp
 OBJECTS_DIR       = tmp
-INCLUDEPATH       = include 
-INCLUDEPATH       += c:/Development/dep_32/include C:\Development\dep_32\include\gl
-LIBPATH       += c:/Development/dep_32/lib
+INCLUDEPATH       = include
+win32:INCLUDEPATH       += c:/Development/dep_32/include C:\Development\dep_32\include\gl
+win32:LIBPATH       += c:/Development/dep_32/lib
 DEPENDPATH        = include src
 DESTDIR      			= lib
 #DESTDIR      			= ../../../lib
@@ -23,7 +40,7 @@ win32:QMAKE_CXXFLAGS     += $$QMAKE_CFLAGS_STL
 win32:CONFIG -= zlib
 
 linux-g++:TMAKE_CXXFLAGS += -fno-exceptions
-unix:VERSION = 0.2.6
+unix:VERSION = 0.3.0
 
 # Input
 SOURCES += src/qwt3d_axis.cpp \
@@ -50,7 +67,7 @@ SOURCES += src/qwt3d_gridmapping.cpp \
 SOURCES += src/qwt3d_surfaceplot.cpp \
            src/qwt3d_gridplot.cpp \
            src/qwt3d_meshplot.cpp
-          
+
 
 HEADERS += include/qwt3d_color.h \
            include/qwt3d_global.h \
@@ -71,7 +88,7 @@ HEADERS += include/qwt3d_color.h \
            include/qwt3d_io_reader.h \
            include/qwt3d_scale.h \
            include/qwt3d_portability.h
-						
+
 HEADERS += include/qwt3d_mapping.h \
 		   include/qwt3d_gridmapping.h \
            include/qwt3d_parametricsurface.h \
@@ -85,7 +102,7 @@ HEADERS += include/qwt3d_surfaceplot.h \
 # gl2ps support
 HEADERS+=3rdparty/gl2ps/gl2ps.h \
            include/qwt3d_io_gl2ps.h
-         
+
 SOURCES+=src/qwt3d_io_gl2ps.cpp \
            3rdparty/gl2ps/gl2ps.c
 
