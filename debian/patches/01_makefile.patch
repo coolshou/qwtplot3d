@@ -1,0 +1,125 @@
+Fixes the makefiles to install according to the Debian FHS
+Index: qwtplot3d-0.2.7+svn191/doc/Doxyfile.doxygen
+===================================================================
+--- qwtplot3d-0.2.7+svn191.orig/doc/Doxyfile.doxygen
++++ qwtplot3d-0.2.7+svn191/doc/Doxyfile.doxygen
+@@ -116,7 +116,7 @@ HTML_STYLESHEET        = web/navigation/
+ HTML_ALIGN_MEMBERS     = YES
+ GENERATE_HTMLHELP      = NO
+ CHM_FILE               = qwtplot3d.chm
+-HHC_LOCATION           = "c:\Programme\HTML Help Workshop\hhc.exe"
++#HHC_LOCATION           = "c:\Programme\HTML Help Workshop\hhc.exe"
+ GENERATE_CHI           = NO
+ BINARY_TOC             = YES
+ TOC_EXPAND             = YES
+@@ -181,7 +181,7 @@ ENABLE_PREPROCESSING   = YES
+ MACRO_EXPANSION        = NO
+ EXPAND_ONLY_PREDEF     = NO
+ SEARCH_INCLUDES        = YES
+-INCLUDE_PATH           = V:/cvs/qwtplot3d/include/
++INCLUDE_PATH           = ../include/
+ INCLUDE_FILE_PATTERNS  = *.h
+ PREDEFINED             = QWT3D_NOT_FOR_DOXYGEN \
+                          QT_VERSION=0x040000
+@@ -212,7 +212,7 @@ CALL_GRAPH             = NO
+ GRAPHICAL_HIERARCHY    = YES
+ DIRECTORY_GRAPH        = YES
+ DOT_IMAGE_FORMAT       = png
+-DOT_PATH               = V:/graphviz/Graphviz/bin/
++#DOT_PATH               = V:/graphviz/Graphviz/bin/
+ DOTFILE_DIRS           = 
+ MAX_DOT_GRAPH_WIDTH    = 974
+ MAX_DOT_GRAPH_HEIGHT   = 10000
+Index: qwtplot3d-0.2.7+svn191/examples/common.pro
+===================================================================
+--- qwtplot3d-0.2.7+svn191.orig/examples/common.pro
++++ qwtplot3d-0.2.7+svn191/examples/common.pro
+@@ -3,13 +3,18 @@ CONFIG      += qt warn_on thread debug
+ UI_DIR = tmp
+ MOC_DIR      = tmp
+ OBJECTS_DIR  = tmp
+-INCLUDEPATH    += ../../include 
+-DEPENDPATH	= $$INCLUDEPATH
+ DESTDIR = ../bin
++QT += widgets
+ 
+-unix:LIBS += -lqwtplot3d -L../../lib
+ linux-g++:QMAKE_CXXFLAGS += -fno-exceptions
+ 
++unix{
++  unix:LIBS += -lqwtplot3d-qt4
++  INCLUDEPATH    += /usr/include/qwtplot3d-qt4
++}
++
++DEPENDPATH	= $$INCLUDEPATH
++
+ win32{
+   LIBS += ../../lib/qwtplot3d.lib
+   TEMPLATE  = vcapp
+@@ -28,7 +33,7 @@ MYVERSION = $$[QMAKE_VERSION]
+ ISQT4 = $$find(MYVERSION, ^[2-9])
+ 
+ !isEmpty( ISQT4 ) {
+-RESOURCES     = ../images.qrc
++#RESOURCES     = ../images.qrc
+ QT += opengl
+ }
+ 
+Index: qwtplot3d-0.2.7+svn191/qwtplot3d.pro
+===================================================================
+--- qwtplot3d-0.2.7+svn191.orig/qwtplot3d.pro
++++ qwtplot3d-0.2.7+svn191/qwtplot3d.pro
+@@ -1,7 +1,13 @@
+ # pro file for building the makefile for qwtplot3d
+ #
+ 
+-TARGET            = qwtplot3d
++TARGET            = qwtplot3d-qt$$QT_VERSION
++# Install directives
++INSTALLBASE	  = /usr
++headers.path      = $$INSTALLBASE/include/qwtplot3d-qt$$QT_VERSION
++headers.files     = $$HEADERS
++target.path       = $$INSTALLBASE/lib
++INSTALLS          = doc headers target
+ TEMPLATE          = lib
+ CONFIG           += qt warn_on opengl thread zlib debug
+ MOC_DIR           = tmp
+@@ -87,9 +98,11 @@ HEADERS+=3rdparty/gl2ps/gl2ps.h \
+ SOURCES+=src/qwt3d_io_gl2ps.cpp \
+          3rdparty/gl2ps/gl2ps.c
+ 
++unix:LIBS  += -lGLU
++
+ # zlib support for gl2ps
+ zlib {
+   DEFINES += GL2PS_HAVE_ZLIB
+   win32:LIBS += zlib.lib
+ 	unix:LIBS  += -lz
+-}
+\ No newline at end of file
++}
+Index: qwtplot3d-0.2.7+svn191/examples/mesh2/src/designerworkaround.h
+===================================================================
+--- qwtplot3d-0.2.7+svn191.orig/examples/mesh2/src/designerworkaround.h
++++ qwtplot3d-0.2.7+svn191/examples/mesh2/src/designerworkaround.h
+@@ -1,13 +1,13 @@
+ #ifndef designerworkaround_h__2005_07_10_10_46_begin_guarded_code
+ #define designerworkaround_h__2005_07_10_10_46_begin_guarded_code
+ 
+-#include <QtGui/QMenu>
+-#include <QtGui/QToolBar>
+-#include <QtGui/QAction>
+-#include <QtGui/QActionGroup>
+-#include <QtGui/QMainWindow>
+-#include <QtGui/QComboBox>
+-#include <QtGui/QMenuBar>
++#include <QMenu>
++#include <QToolBar>
++#include <QAction>
++#include <QActionGroup>
++#include <QMainWindow>
++#include <QComboBox>
++#include <QMenuBar>
+ 
+ 
+ class DesignerWorkaround

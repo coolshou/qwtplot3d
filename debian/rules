@@ -1,0 +1,38 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all optimize=-lto
+
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CPPFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	mkdir -p build-qt6
+	cp -a doc build-qt6/
+	QT_SELECT=qt6 dh_auto_configure --builddirectory=build-qt6 --
+
+override_dh_auto_build:
+	dh_auto_build --builddirectory=build-qt6
+	cd build-qt6/doc && doxygen Doxyfile.doxygen
+
+override_dh_auto_clean:
+	rm -rf build-qt6
+
+override_dh_auto_install:
+	mkdir -p debian/tmp/usr/include/qwtplot3d
+	cp -a include/* debian/tmp/usr/include/qwtplot3d
+	dh_auto_install --builddirectory=build-qt6
+	find debian/tmp/usr -type f -name '*.md5' -exec rm -vf {} \;
+	find debian/tmp/usr -type f -name '*.js' -exec rm -vf {} \;
+	mkdir -p debian/tmp/usr/share/doc/libqwtplot3d-doc/html
+	cp -a build-qt6/doc/web/doxygen/* debian/tmp/usr/share/doc/libqwtplot3d-doc/html
+
+override_dh_compress-indep:
+	dh_compress --exclude=.cpp --exclude=.pri --exclude=.xpm --exclude=.ui

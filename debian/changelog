@@ -1,0 +1,196 @@
+qwtplot3d (0.3.0-1) noble; urgency=medium
+
+  * Qt6
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 14 May 2025 15:14:43 +0200
+
+qwtplot3d (0.2.7+svn191+gcc7-3ubuntu2) noble; urgency=medium
+
+  * Mark some symbols as optional disappearing with O3 optimization
+    on ppc64el.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 16 Apr 2024 15:14:43 +0200
+
+qwtplot3d (0.2.7+svn191+gcc7-3ubuntu1) noble; urgency=medium
+
+  * Disable LTO optimization to avoid symbols mismatches (see
+    https://bugs.debian.org/1015648).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 16 Apr 2024 12:02:23 +0100
+
+qwtplot3d (0.2.7+svn191+gcc7-3build2) noble; urgency=medium
+
+  * No-change rebuild against libqt5core5t64
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 15 Mar 2024 06:59:14 +0000
+
+qwtplot3d (0.2.7+svn191+gcc7-3build1) focal; urgency=medium
+
+  * No-change rebuild for libgcc-s1 package name change.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 24 Mar 2020 15:09:55 +0100
+
+qwtplot3d (0.2.7+svn191+gcc7-3) unstable; urgency=medium
+
+  * Change dependency from libqt5opengl5-dev to
+    libqt5opengl5-desktop-dev (Closes: #816387)
+  * Bump standards version to 4.2.1, no changes needed
+  * Change architecture to any
+  * Update symbols file
+  * Fix Vcs-Browser and Vcs-Git urls
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Sat, 29 Sep 2018 20:52:53 +0200
+
+qwtplot3d (0.2.7+svn191+gcc7-2) unstable; urgency=medium
+
+  [ Gudjon I. Gudjonsson ]
+  * Add symbols files
+  * Remove support for Qt4 (Closes: #875167)
+
+  [ Andreas Tille ]
+  * Moved packaging from SVN to Git
+  * cme fix dpkg-control; cme fix dpkg-copyright
+  * debhelper 10
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Mon, 25 Dec 2017 09:19:11 +0100
+
+qwtplot3d (0.2.7+svn191+gcc7-1.0) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * No change in the source, but ...
+  * Changed the version string to prevent collisions with variants
+    of qwtplot3d-0.2.7+svn191, especially in backports. Reinitialized
+    .symbols files. Closes: #853635
+  * Updated debhelper version, Standards-Version.
+
+ -- Georges Khaznadar <georgesk@debian.org>  Tue, 19 Sep 2017 17:21:48 +0200
+
+qwtplot3d (0.2.7+svn191-10.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Apply patch from Graham Inggs <ginggs@debian.org> to update symbols
+    for gcc 6 (Closes: #811986)
+
+ -- Arto Jantunen <viiru@debian.org>  Fri, 23 Dec 2016 14:26:35 +0200
+
+qwtplot3d (0.2.7+svn191-10) unstable; urgency=medium
+
+  * Disable qt5 library on architectures armel and armhf.
+    It doesn't compile on these architectures because of opengl problems.
+  * Bump standards version to 3.9.7,no changes needed.
+  * Change VCS field to https
+  * Change hardening to +all
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Thu, 24 Mar 2016 14:01:55 +0100
+
+qwtplot3d (0.2.7+svn191-9) unstable; urgency=medium
+
+  * Add Qt5 library
+  * Add support for Qt5 to examples patch
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Sat, 05 Sep 2015 13:15:52 +0100
+
+qwtplot3d (0.2.7+svn191-8) unstable; urgency=medium
+
+  * Make svn references canonical
+  * Bump standards version to 3.9.6
+  * Change debhelper dependency to 9
+  * Add hardening flags
+  * Add symbols control file
+  * Update build system
+  * Add pkg-kde-tools to build system
+  * Change qt4 package name to libqwtplot3d-qt4-0v5 (Closes:  #791264)
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Wed, 02 Sep 2015 07:04:48 +0100
+
+qwtplot3d (0.2.7+svn191-7) unstable; urgency=low
+
+  * Remove -lGLU from examples/common.pro, Reverting
+    last change.
+  * Add -lGLU to qwtplot3d.pro and add dependency on
+    libglu1-mesa-dev | libglu-dev (Closes: #672873)
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Wed, 16 May 2012 05:08:10 +0200
+
+qwtplot3d (0.2.7+svn191-6) unstable; urgency=low
+
+  * Fix ftbs (Closes: #672023, #665750)
+  * Bump standards version to 3.9.3
+  * Set debhelper dependency to >=8
+  * Add build-arch and build-indep to rules
+  * Change copyright to copyright-format 1.0
+  * Add -lGLU to examples library dependencies
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Sat, 12 May 2012 08:11:28 +0200
+
+qwtplot3d (0.2.7+svn191-5) unstable; urgency=low
+
+  * Remove qt3 support (Closes: #604380)
+  * Bump standards version to 3.9.1
+  * Remove README.source
+  * Switch to dpkg-source 3.0 (quilt) format
+  * Rewrite patches in quilt format
+  * Add dependency on zlib1g-dev
+  * Upgrade copyright file to current format
+  * Add watch file
+  * Add misc Depends
+  * Add doc-base file
+  * Remove qt3 related things from patches
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Thu, 03 Mar 2011 09:47:22 +0100
+
+qwtplot3d (0.2.7+svn191-4) unstable; urgency=low
+
+  * Add conflicts and replaces on the old packages libqwtplot3d-qt{3,4}
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Sat, 21 Nov 2009 17:44:53 +0100
+
+qwtplot3d (0.2.7+svn191-3) unstable; urgency=low
+
+  [ Gudjon I. Gudjonsson ]
+  * Create patch 03_fix_ftbs to fix FTBS with gcc-4.4 (Closes: 504912)
+  * Bump standards version to 3.8.3, no changes needed
+  * Add README.source
+  * Add Vcs fields for debian-science
+
+  [ Andreas Tille ]
+  * Group maintenance in Debian Science team with permission of maintainer
+  * Debhelper 7
+  * Rename package libqwtplot3d-qt[34] to libqwtplot3d-qt[34]-0 to match
+    soname
+  * Remove unneeded debian/*.dirs files because theses dirs will be
+    created by dh_install automatically anyway
+
+ -- Andreas Tille <tille@debian.org>  Fri, 20 Nov 2009 11:44:36 +0100
+
+qwtplot3d (0.2.7+svn191-2) unstable; urgency=low
+
+  * Added dependency on libqt4-opengl-dev. (Closes: #482252)
+  * Bump standards version to 3.7.3. No changes needed.
+  * Add a homepage field to control file.
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Tue, 27 May 2008 10:24:26 +0200
+
+qwtplot3d (0.2.7+svn191-1) unstable; urgency=low
+
+  * An SVN version. Includes patches necessary for PyQwt3d.
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Thu, 23 Aug 2007 12:36:37 +0200
+
+qwtplot3d (0.2.7-1) unstable; urgency=low
+
+  * New upstream release.
+  * Changed the rules file. The original tgz file can be used directly now.
+  * Repatched the new release.
+  * Changed line endings with dos2unix in original tarball.
+  * Examples are not gzipped anymore.
+  * Changed maintainers email.
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Wed, 27 Jun 2007 10:19:39 +0200
+
+qwtplot3d (0.2.6+svn170-1) unstable; urgency=low
+
+  * Initial release (Closes: #408538)
+
+ -- Gudjon I. Gudjonsson <gudjon@mc2.chalmers.se>  Fri, 26 Jan 2007 13:37:18 +0100
+

@@ -1,0 +1,15 @@
+Adds hardening to makefile
+--- a/qwtplot3d.pro
++++ b/qwtplot3d.pro
+@@ -1,6 +1,11 @@
+ # pro file for building the makefile for qwtplot3d
+ #
+ 
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS) -D_FORTIFY_SOURCE=2
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)  -D_FORTIFY_SOURCE=2
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++
+ TARGET            = qwtplot3d-qt$$QT_MAJOR_VERSION
+ # Install directives
+ INSTALLBASE	  = /usr

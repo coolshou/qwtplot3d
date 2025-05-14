@@ -1,0 +1,4 @@
+version=3
+#http://sf.net/ngspice/ng-spice-rework-(.*)\.tar\.gz debian uupdate
+#http://sf.net/projects/qwtplot3d/files/qwtplot3d/(.*)/qwtplot3d-(.*)\.tgz/download debian uupdate
+http://sf.net/qwtplot3d/qwtplot3d-([0-9].*)\.tgz debian uupdate

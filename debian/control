@@ -1,0 +1,54 @@
+Source: qwtplot3d
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Gudjon I. Gudjonsson <gudjon@gudjon.org>,
+           Andreas Tille <tille@debian.org>
+Section: libs
+Priority: optional
+Build-Depends: debhelper (>= 10),
+               doxygen,
+               libglu1-mesa-dev | libglu-dev,
+               libjs-jquery,
+               zlib1g-dev,
+               libqt5opengl5-desktop-dev | libqt5opengl5-dev |  libqt6opengl6-dev
+Standards-Version: 4.2.1
+Vcs-Browser: https://salsa.debian.org/science-team/qwtplot3d
+Vcs-Git: https://salsa.debian.org/science-team/qwtplot3d.git
+Homepage: http://qwtplot3d.sourceforge.net
+
+Package: libqwtplot3d-qt6-dev
+Architecture: any
+Section: libdevel
+Depends: libqwtplot3d-qt6-0 (= ${binary:Version}),
+         ${misc:Depends}
+Description: 3D plotting library based on Qt6/OpenGL (development)
+ QwtPlot3D is a feature rich Qt/OpenGL-based C++ programming
+ library, providing essentially a bunch of 3D-widgets for
+ programmers.
+ .
+ This package contains the QwtPlot3D development files for Qt6.
+
+Package: libqwtplot3d-qt6-0
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: 3D plotting library based on Qt6/OpenGL (runtime)
+ QwtPlot3D is a feature rich Qt/OpenGL-based C++ programming
+ library, providing essentially a bunch of 3D-widgets for
+ programmers.
+ .
+ This package contains the files necessary for running applications that
+ use the QwtPlot3D library and Qt6.
+
+Package: libqwtplot3d-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Recommends: w3m | www-browser
+Description: 3D plotting library based on Qt/OpenGL (documentation)
+ QwtPlot3D is a feature rich Qt/OpenGL-based C++ programming
+ library, providing essentially a bunch of 3D-widgets for
+ programmers.
+ .
+ This package contains the html documentation and example
+ programs.

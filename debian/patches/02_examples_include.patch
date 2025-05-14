@@ -1,0 +1,132 @@
+Change include directory from local to system wide
+--- a/examples/axes/src/axesmainwindow.cpp
++++ b/examples/axes/src/axesmainwindow.cpp
+@@ -9,7 +9,7 @@
+ 
+ #include "axes.h"
+ #include "axesmainwindow.h"
+-#include "../../../include/qwt3d_function.h"
++#include <qwt3d_function.h>
+ 
+ using namespace std;
+ using namespace Qwt3D;
+--- a/examples/mesh2/src/colormapreader.h
++++ b/examples/mesh2/src/colormapreader.h
+@@ -5,7 +5,7 @@
+ #include <qframe.h>
+ #include <qpixmap.h>
+ 
+-#include "../../../include/qwt3d_types.h"
++#include <qwt3d_types.h>
+ 
+ #if QT_VERSION < 0x040000
+ 
+--- a/examples/mesh2/src/functions.h
++++ b/examples/mesh2/src/functions.h
+@@ -2,8 +2,8 @@
+ #define __EXAMPLE_H__
+ 
+ #include <math.h>
+-#include "../../../include/qwt3d_parametricsurface.h"
+-#include "../../../include/qwt3d_function.h"
++#include <qwt3d_parametricsurface.h>
++#include <qwt3d_function.h>
+ 
+ using namespace Qwt3D;
+ 
+--- a/examples/mesh2/src/lightingdlg.h
++++ b/examples/mesh2/src/lightingdlg.h
+@@ -3,10 +3,10 @@
+ 
+ #include <math.h>
+ #include <qapplication.h>
+-#include "../../../include/qwt3d_parametricsurface.h"
+-#include "../../../include/qwt3d_surfaceplot.h"
+-#include "../../../include/qwt3d_enrichment.h"
+-#include "../../../include/qwt3d_color.h"
++#include <qwt3d_parametricsurface.h>
++#include <qwt3d_surfaceplot.h>
++#include <qwt3d_enrichment.h>
++#include <qwt3d_color.h>
+ 
+ #if QT_VERSION < 0x040000
+ #include "lightingdlgbase.h"
+--- a/examples/mesh2/src/mesh2mainwindow.cpp
++++ b/examples/mesh2/src/mesh2mainwindow.cpp
+@@ -16,7 +16,7 @@
+ #include <qtoolbar.h>
+ #include <qimage.h>
+ #include <qpixmap.h>
+-#include <qfiledialog.h>       
++#include <qfiledialog.h>
+ #include <qstatusbar.h>
+ #include <qfileinfo.h>
+ #include <qslider.h>
+@@ -33,9 +33,9 @@
+ #include "colormapreader.h"
+ #include "lightingdlg.h"
+ #include "femreader.h"
+-#include "../../../include/qwt3d_io.h"
+-#include "../../../include/qwt3d_io_gl2ps.h"
+-#include "../../../include/qwt3d_io_reader.h"
++#include <qwt3d_io.h>
++#include <qwt3d_io_gl2ps.h>
++#include <qwt3d_io_reader.h>
+ 
+ using namespace Qwt3D;
+ using namespace std;
+--- a/examples/mesh2/src/mesh2mainwindow.h
++++ b/examples/mesh2/src/mesh2mainwindow.h
+@@ -1,7 +1,7 @@
+ #ifndef mesh2mainwindow_h__2004_03_07_13_38_begin_guarded_code
+ #define mesh2mainwindow_h__2004_03_07_13_38_begin_guarded_code
+ 
+-#include "../../../include/qwt3d_surfaceplot.h"
++#include <qwt3d_surfaceplot.h>
+ 
+ 
+ #if QT_VERSION < 0x040000
+--- a/examples/enrichments/src/enrichmentmainwindow.cpp
++++ b/examples/enrichments/src/enrichmentmainwindow.cpp
+@@ -6,7 +6,7 @@
+ 
+ #include "enrichmentmainwindow.h"
+ #include "enrichments.h"
+-#include "../../../include/qwt3d_function.h"
++#include <qwt3d_function.h>
+ 
+ using namespace Qwt3D;
+ 
+--- a/examples/common.pro
++++ b/examples/common.pro
+@@ -9,8 +9,13 @@
+ linux-g++:QMAKE_CXXFLAGS += -fno-exceptions
+ 
+ unix{
+-  unix:LIBS += -lqwtplot3d-qt4
+-  INCLUDEPATH    += /usr/include/qwtplot3d-qt4
++  unix:LIBS += -lqwtplot3d-qt$$QT_MAJOR_VERSION
++  greaterThan(QT_MAJOR_VERSION, 4) {
++    INCLUDEPATH    += /usr/include/qwtplot3d
++  }
++  else {
++    INCLUDEPATH    += /usr/include/qwtplot3d-qt4
++  }
+ }
+ 
+ DEPENDPATH	= $$INCLUDEPATH
+--- a/qwtplot3d.pro
++++ b/qwtplot3d.pro
+@@ -1,10 +1,10 @@
+ # pro file for building the makefile for qwtplot3d
+ #
+ 
+-TARGET            = qwtplot3d-qt$$QT_VERSION
++TARGET            = qwtplot3d-qt$$QT_MAJOR_VERSION
+ # Install directives
+ INSTALLBASE	  = /usr
+-headers.path      = $$INSTALLBASE/include/qwtplot3d-qt$$QT_VERSION
++headers.path      = $$INSTALLBASE/include/qwtplot3d-qt$$QT_MAJOR_VERSION
+ headers.files     = $$HEADERS
+ target.path       = $$INSTALLBASE/lib
+ INSTALLS          = doc headers target

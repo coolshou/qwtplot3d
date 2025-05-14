@@ -1,0 +1,27 @@
+qwtplot3d for Debian
+------------------
+
+A postfix has been added to the library names according to the version of Qt:
+* libqwtplot3d-qt5.so* is QwtPlot3D 0.2.6 compiled against Qt5
+libqwtplot3d-qt4 and libqwtplot3d-qt5 were earlier coinstalled. Now qt4 has been
+removed but the namechange will stay.
+
+In that way, all these qwtplot3d libraries can coexist but you can only have a single 
+development package for each Qt version. 
+
+The include files are placed in the following directory:
+* /usr/include/qwtplot3d
+
+If you have a precompiled binary file, linked against libqwt then you may need to add 
+a symbolic link to the corresponding library.
+
+To compile the examples you need to copy them to a local directory and do the
+following steps:
+$cp -r /usr/share/doc/libqwtplot3d-doc/examples .
+$cd examples
+$qmake-qt5 examples.pro
+
+The sources for gl2ps are in the source tree but it is not compiled. Please refer to
+http://www.geuz.org/gl2ps for reference.
+
+ -- Gudjon I. Gudjonsson <gudjon@gudjon.org>  Mon, 18 Dec 2006 22:21:51 +0100
